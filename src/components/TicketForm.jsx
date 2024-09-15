@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TicketForm = () => {
+const TicketForm = ({ dispatch }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("1");
@@ -19,8 +19,20 @@ const TicketForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const ticketData = {
+      id: new Date().toString(),
+      title,
+      description,
+      priority,
+    };
+    dispatch({
+      type: "ADD_TICKET",
+      payload: ticketData,
+    });
     clearForm();
   };
+
   return (
     <form className="ticket-form" onSubmit={handleSubmit}>
       <div>
